@@ -51,11 +51,14 @@ const STEPS: { title: string; emoji: string; field: Field }[] = [
   },
 ];
 
+const SEND_URL = 'https://functions.poehali.dev/eeb68172-86be-4c30-a798-82f0d9260764';
+
 const Index = () => {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<Record<string, string>>({});
   const [error, setError] = useState('');
   const [done, setDone] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const current = STEPS[step];
   const isLast = step === STEPS.length - 1;
@@ -67,18 +70,30 @@ const Index = () => {
       setError('Это поле нужно заполнить');
       return false;
     }
-    if (current.field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      setError('Похоже, в email есть ошибка');
-      return false;
-    }
     setError('');
     return true;
+  };
+
+  const submit = async () => {
+    setSending(true);
+    try {
+      await fetch(SEND_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      setDone(true);
+    } catch {
+      setError('Ошибка отправки, попробуй ещё раз');
+    } finally {
+      setSending(false);
+    }
   };
 
   const next = () => {
     if (!validate()) return;
     if (isLast) {
-      setDone(true);
+      submit();
     } else {
       setStep((s) => s + 1);
     }
@@ -193,10 +208,11 @@ const Index = () => {
               </Button>
               <Button
                 onClick={next}
-                className="h-13 px-8 py-6 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-display uppercase tracking-wide text-base shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all"
+                disabled={sending}
+                className="h-13 px-8 py-6 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 font-display uppercase tracking-wide text-base shadow-[4px_4px_0_0_hsl(var(--foreground))] hover:shadow-[2px_2px_0_0_hsl(var(--foreground))] transition-all disabled:opacity-70"
               >
-                {isLast ? 'Отправить' : 'Далее'}
-                <Icon name={isLast ? 'Send' : 'ArrowRight'} size={18} className="ml-2" />
+                {sending ? 'Отправляем...' : isLast ? 'Отправить' : 'Далее'}
+                <Icon name={sending ? 'Loader' : isLast ? 'Send' : 'ArrowRight'} size={18} className={`ml-2 ${sending ? 'animate-spin' : ''}`} />
               </Button>
             </div>
           </div>
