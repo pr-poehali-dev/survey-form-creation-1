@@ -16,23 +16,8 @@ type Field = {
 const STEPS: { title: string; emoji: string; field: Field }[] = [
   {
     title: 'Знакомство',
-    emoji: '👋',
-    field: { name: 'name', label: 'Как вас зовут?', placeholder: 'Иван Петров', type: 'text', hint: 'Имя и фамилия' },
-  },
-  {
-    title: 'Контакт',
-    emoji: '✉️',
-    field: { name: 'email', label: 'Ваш email', placeholder: 'you@example.com', type: 'email', hint: 'Чтобы мы могли ответить' },
-  },
-  {
-    title: 'Чем занимаетесь',
-    emoji: '💼',
-    field: { name: 'role', label: 'Кем вы работаете?', placeholder: 'Дизайнер, предприниматель...', type: 'text', hint: 'Пара слов о вашей роли' },
-  },
-  {
-    title: 'Главный вопрос',
-    emoji: '✨',
-    field: { name: 'goal', label: 'Какую задачу хотите решить?', placeholder: 'Расскажите подробнее...', type: 'textarea', hint: 'Чем подробнее — тем лучше' },
+    emoji: '🐾',
+    field: { name: 'nickname', label: 'Как ваша кличка?', placeholder: 'Барсик', type: 'text', hint: 'Только кличка, без лишнего' },
   },
 ];
 
@@ -194,8 +179,7 @@ const Index = () => {
               Готово!
             </h2>
             <p className="text-background/70 text-lg max-w-sm mx-auto mb-8">
-              Спасибо, {data.name || 'друг'}! Мы получили вашу анкету и скоро свяжемся
-              {data.email ? ` по ${data.email}` : ''}.
+              Спасибо, {data.nickname || 'друг'}! Мы получили вашу анкету.
             </p>
             <Button
               onClick={() => {
