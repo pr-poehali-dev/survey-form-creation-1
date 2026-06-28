@@ -15,9 +15,39 @@ type Field = {
 
 const STEPS: { title: string; emoji: string; field: Field }[] = [
   {
-    title: 'Знакомство',
+    title: 'Кличка',
     emoji: '🐾',
-    field: { name: 'nickname', label: 'Как ваша кличка?', placeholder: 'Барсик', type: 'text', hint: 'Только кличка, без лишнего' },
+    field: { name: 'nickname', label: 'Как твоя кличка?', placeholder: 'Барсик', type: 'text', hint: 'Только кличка, без лишнего' },
+  },
+  {
+    title: 'Возраст',
+    emoji: '🎂',
+    field: { name: 'age', label: 'Сколько тебе лет?', placeholder: '18', type: 'text', hint: 'Просто число' },
+  },
+  {
+    title: 'Юзернейм',
+    emoji: '🏷️',
+    field: { name: 'username', label: 'Ваш юзернейм', placeholder: '@username', type: 'text', hint: 'Ник в соцсети или мессенджере' },
+  },
+  {
+    title: 'Хобби',
+    emoji: '🎨',
+    field: { name: 'hobbies', label: 'Какие у тебя хобби и увлечения?', placeholder: 'Рисование, чтение, игры...', type: 'textarea', hint: 'Расскажи, чем занимаешься в свободное время' },
+  },
+  {
+    title: 'Как узнал',
+    emoji: '🔍',
+    field: { name: 'howFound', label: 'Как ты узнал о нашей стае?', placeholder: 'Через друга, в интернете...', type: 'textarea', hint: 'Расскажи свою историю знакомства с нами' },
+  },
+  {
+    title: 'Ожидания',
+    emoji: '✨',
+    field: { name: 'expectations', label: 'Какие у тебя ожидания от стаи?', placeholder: 'Хочу найти друзей, развиваться...', type: 'textarea', hint: 'Что надеешься получить от нашего сообщества' },
+  },
+  {
+    title: 'Персонажи',
+    emoji: '📖',
+    field: { name: 'characters', label: 'Какие 3 любимых персонажа из «Дом, в котором…»?', placeholder: 'Курильщик, Сфинкс, Македонский...', type: 'text', hint: 'Через запятую' },
   },
 ];
 
